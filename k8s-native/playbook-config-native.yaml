@@ -1,0 +1,16 @@
+- name: do a configuration
+  hosts: masters,workers
+  become: yes
+
+  tasks:
+    - name: set a module for modprobe
+      community.general.modprobe:
+        name: overlay
+        state: present
+        persistent: present
+    - name: set a module for modprobe
+      community.general.modprobe:
+        name:  br_netfilter
+        state: present
+        persistent: present
+
