@@ -1,0 +1,24 @@
+- name: install terraform bare metal
+  hosts: Jenkins
+  become: yes
+  tasks:
+    - name:
+      ansible.builtin.get_url: https://apt.releases.hashicorp.com/gpg
+      dest: /etc/apt/keyrings/hashicorp-archive-keyring.asc
+      mode: "0644"
+    - name: verify gpg
+      ansible.builtin.shell: gpg --no-default-keyring --keyring /etc/apt/keyrings/hashicorp-archive-keyring.asc --fingerprint
+      changed_when: false
+    - name: Add HashiCorp apt repository
+      ansible.builtin.apt_repository:
+        repo: >-
+          deb [arch={{ 'amd64' if ansible_architecture == 'x86_64' else 'arm64' }}
+          signed-by=/etc/apt/keyrings/hashicorp-archive-keyring.asc]
+          https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main
+        filename: hashicorp
+        state: present
+    - name: install terraform
+      ansible.builtin.apt:
+        name: terraform
+        state: present
+        update_cache: yes
