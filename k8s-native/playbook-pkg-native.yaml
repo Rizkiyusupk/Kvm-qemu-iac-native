@@ -43,19 +43,22 @@
         owner: root
         group: root
     - name: add config containerd
-      ansible.builtin.shell: containerd config default | sudo tee /etc/containerd/config.toml
-    - name: Replace old hostname with new hostname (requires Ansible >= 2.4)
+      ansible.builtin.shell: containerd config default  > /etc/containerd/config.toml
+      args:
+        creates: /etc/containerd/config.toml
+    - name: change c group true from false
       ansible.builtin.replace:
         path: /etc/containerd/config.toml
-        regexp: '/SystemdCgroup \= true/g'
-        replace: s/SystemdCgroup \= false
-    - name: daemon-reload to pick up config changes
-      ansible.builtin.systemd_service:
-        state: restarted
-        daemon_reload: true
-        name: containerd
+        regexp: "SystemdCgroup = false"
+        replace: "SystemdCgroup = true"
+      notify: Restart containerd
     - name: Enable service
       ansible.builtin.systemd_service:
         name: containerd
         enabled: true
         masked: no
+  handlers:
+    - name: Restart containerd
+      ansible.builtin.systemd_service:
+        name: containerd
+        state: restarted
