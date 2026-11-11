@@ -14,7 +14,6 @@
         rule: allow
         proto: udp
 
-
 - name: allow port
   hosts: workers
   become: yes
@@ -38,7 +37,7 @@
   tasks:
     - name: allow port2
       community.general.ufw:
-        port: 10250:10252
+        port: 10257:10259
         rule: allow
         proto: tcp
     - name: allow-port2
@@ -55,7 +54,6 @@
   hosts: masters,workers
   become: yes
 
-
   tasks:
     - name: daemon-reload
       ansible.builtin.systemd_service:
@@ -68,10 +66,9 @@
   tasks:
     - name: set default forward policy ke allow
       community.general.ufw:
-      default: allow
-      direction: routed
+        default: allow
+        direction: routed
 
     - name: Ensure UFW is activated and enabled
       community.general.ufw:
         state: enabled
-
