@@ -27,7 +27,7 @@
 
     - name: Add Docker repository
       ansible.builtin.apt_repository:
-        repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+        repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu  {{ ansible_distribution_release }}  stable"
         filename: docker
         state: present
         update_cache: yes
@@ -42,8 +42,19 @@
         mode: "0755"
         owner: root
         group: root
-    - name: add config containerd
-      ansible.builtin.shell: containerd config default  > /etc/containerd/config.toml
+    - name: Ambil default config containerd
+      ansible.builtin.command: containerd config default
+      register: containerd_default
+      changed_when: false
+
+    - name: Tulis config containerd (SystemdCgroup=true)
+      ansible.builtin.copy:
+        content: "{{ containerd_default.stdout | regex_replace('SystemdCgroup = false', 'SystemdCgroup = true') }}\n"
+        dest: /etc/containerd/config.toml
+        owner: root
+        group: root
+        mode: "0644"
+      notify: Restart containerd
     - name: change c group true from false
       ansible.builtin.replace:
         path: /etc/containerd/config.toml
