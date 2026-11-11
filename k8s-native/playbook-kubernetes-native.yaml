@@ -1,0 +1,10 @@
+- name: install kubernetes package
+  hosts: masters,workers
+  become: yes
+
+  tasks:
+    - name: install gpg key for kubernetes
+      ansible.builtin.urL:
+        url: https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key
+        dest: https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key
+        mode: "0755"
