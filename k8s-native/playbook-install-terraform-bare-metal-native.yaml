@@ -2,7 +2,7 @@
   hosts: Jenkins
   become: yes
   tasks:
-    - name:
+    - name: download gpg key
       ansible.builtin.get_url: https://apt.releases.hashicorp.com/gpg
       dest: /etc/apt/keyrings/hashicorp-archive-keyring.asc
       mode: "0644"
