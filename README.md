@@ -67,3 +67,6 @@ k8s/
 - **KVM** :  v 8.2.2
 - **QEMU** :  v 8.2.2
 - **LIBVIRT** : 10.0.0
+
+### Project
+Link ke project [ini](/https://rizkiyusupk.github.io/devops/kubernetes/linux/server/iac/infrastructure/kvm/)
