@@ -1,6 +1,6 @@
 - name: install kubectl on baremetal
   hosts: Jenkins
-  become: tes
+  become: yes
   tasks:
     - name: install prerequisite
       ansible.builtin.apt:
@@ -9,15 +9,14 @@
           - ca-certificates
           - curl
         state: present
-        update_cache: yes
 
     - name: adding key
       ansible.builtin.get_url:
-        src: https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key
+        url: https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key
         dest: /etc/apt/keyrings/kubernetes-apt-keyring.asc
         mode: "0655"
     - name: signed repo
-      ansible.builtin.repository:
+      ansible.builtin.apt_repository:
         repo: "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.asc] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /"
         filename: kubectl
         state: present
