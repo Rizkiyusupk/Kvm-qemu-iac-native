@@ -16,9 +16,10 @@
     - name: verify gpg fingerprint
       ansible.builtin.shell: >
         gpg --show-keys --with-colons /etc/apt/keyrings/hashicorp-archive-keyring.asc
-        | awk -F: '/^fpr:/ {print $10; exit}'
+        | awk -F: '/^fpr:/ {print $10}'
       register: hc_fpr
       changed_when: false
+      failed_when: "'D55C0D1AC78A8D8126CB631CFC9CA96ACA026560' not in hc_fpr.stdout_lines"
     - name: Add HashiCorp apt repository
       ansible.builtin.apt_repository:
         repo: >-
