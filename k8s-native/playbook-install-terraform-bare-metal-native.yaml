@@ -1,6 +1,8 @@
 - name: install terraform bare metal
   hosts: Jenkins
   become: yes
+  vars:
+    hashicorp_suite: "{{ 'noble' if ansible_distribution_release == 'plucky' else ansible_distribution_release }}"
   tasks:
     - name: Ensure keyrings directory exists
       ansible.builtin.file:
@@ -25,7 +27,7 @@
         repo: >-
           deb [arch={{ 'amd64' if ansible_architecture == 'x86_64' else 'arm64' }}
           signed-by=/etc/apt/keyrings/hashicorp-archive-keyring.asc]
-          https://apt.releases.hashicorp.com noble main {{ ansible_distribution_release }} main
+          https://apt.releases.hashicorp.com {{ hashicorp_suite }} main
         filename: hashicorp
         state: present
     - name: install terraform
