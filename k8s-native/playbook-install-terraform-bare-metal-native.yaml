@@ -12,8 +12,12 @@
         url: https://apt.releases.hashicorp.com/gpg
         dest: /etc/apt/keyrings/hashicorp-archive-keyring.asc
         mode: "0644"
-    - name: verify gpg
-      ansible.builtin.shell: gpg --no-default-keyring --keyring /etc/apt/keyrings/hashicorp-archive-keyring.asc --fingerprint
+      ### saya minta claude buat task yang ini tepat di bawah dan cuman satukarena saya sudah angkat tangan ga ngerti buat yang ini error terus wkwwk
+    - name: verify gpg fingerprint
+      ansible.builtin.shell: >
+        gpg --show-keys --with-colons /etc/apt/keyrings/hashicorp-archive-keyring.asc
+        | awk -F: '/^fpr:/ {print $10; exit}'
+      register: hc_fpr
       changed_when: false
     - name: Add HashiCorp apt repository
       ansible.builtin.apt_repository:
