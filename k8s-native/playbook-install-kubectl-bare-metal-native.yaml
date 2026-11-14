@@ -14,7 +14,7 @@
       ansible.builtin.get_url:
         url: https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key
         dest: /etc/apt/keyrings/kubernetes-apt-keyring.asc
-        mode: "0655"
+        mode: "0644"
     - name: signed repo
       ansible.builtin.apt_repository:
         repo: "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.asc] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /"

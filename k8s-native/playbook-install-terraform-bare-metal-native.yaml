@@ -2,10 +2,16 @@
   hosts: Jenkins
   become: yes
   tasks:
+    - name: Ensure keyrings directory exists
+      ansible.builtin.file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: "0755"
     - name: download gpg key
-      ansible.builtin.get_url: https://apt.releases.hashicorp.com/gpg
-      dest: /etc/apt/keyrings/hashicorp-archive-keyring.asc
-      mode: "0644"
+      ansible.builtin.get_url:
+        url: https://apt.releases.hashicorp.com/gpg
+        dest: /etc/apt/keyrings/hashicorp-archive-keyring.asc
+        mode: "0644"
     - name: verify gpg
       ansible.builtin.shell: gpg --no-default-keyring --keyring /etc/apt/keyrings/hashicorp-archive-keyring.asc --fingerprint
       changed_when: false
