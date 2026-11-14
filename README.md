@@ -31,7 +31,7 @@ terraform-setup/
 dan yang kedua yaitu ansible
 
 ```
-k8s/
+k8s-native/
 ├── ansible.cfg
 ├── inventory
 ├── playbook-allow-port-native.yaml
