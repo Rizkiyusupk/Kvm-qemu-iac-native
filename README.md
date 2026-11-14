@@ -34,18 +34,17 @@ dan yang kedua yaitu ansible
 k8s/
 ├── ansible.cfg
 ├── inventory
-├── playbook-allow-port.yaml
-├── playbook-enable-service-baremetal.yaml
-├── playbook-ip.yaml
-├── playbook-install-java-baremetal.yaml
-├── playbook-install-jenkins-baremetal.yaml
-├── playbook-install-kubectl-baremetal.yaml
-├── playbook-join.yaml
-├── playbook-kubernetes.yaml
-├── playbook-pkg.yaml
-├── playbook-swap.yaml
-├── playbook-install-terraform-bare-metal.yaml
-├── playbook-config.yaml
+├── playbook-allow-port-native.yaml
+├── playbook-ip-native.yaml
+├── playbook-install-java-baremetal-native.yaml
+├── playbook-install-jenkins-baremetal-native.yaml
+├── playbook-install-kubectl-baremetal-native.yaml
+├── playbook-join-native.yaml
+├── playbook-kubernetes-native.yaml
+├── playbook-pkg-native.yaml
+├── playbook-swap-native.yaml
+├── playbook-install-terraform-bare-metal-native.yaml
+├── playbook-config-native.yaml
 ```
 
 
@@ -68,3 +67,6 @@ k8s/
 - **KVM** :  v 8.2.2
 - **QEMU** :  v 8.2.2
 - **LIBVIRT** : 10.0.0
+
+### Project
+Link ke project [ini](/https://rizkiyusupk.github.io/devops/kubernetes/linux/server/iac/infrastructure/kvm/)
