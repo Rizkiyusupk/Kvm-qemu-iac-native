@@ -42,7 +42,7 @@
         mode: "0755"
         owner: root
         group: root
-    - name: Ambil default config containerd
+    - name: take default config containerd
       ansible.builtin.command: containerd config default
       register: containerd_default
       changed_when: false
