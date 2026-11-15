@@ -47,7 +47,7 @@
       register: containerd_default
       changed_when: false
 
-    - name: Tulis config containerd (SystemdCgroup=true)
+    - name: config containerd (SystemdCgroup=true)
       ansible.builtin.copy:
         content: "{{ containerd_default.stdout | regex_replace('SystemdCgroup = false', 'SystemdCgroup = true') }}\n"
         dest: /etc/containerd/config.toml
