@@ -55,12 +55,6 @@
         group: root
         mode: "0644"
       notify: Restart containerd
-    - name: change c group true from false
-      ansible.builtin.replace:
-        path: /etc/containerd/config.toml
-        regexp: "SystemdCgroup = false"
-        replace: "SystemdCgroup = true"
-      notify: Restart containerd
     - name: Enable service
       ansible.builtin.systemd_service:
         name: containerd
