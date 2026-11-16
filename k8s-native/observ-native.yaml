@@ -26,3 +26,4 @@
         chart_version: "65.1.0"
         release_namespace: monitoring
         update_repo_cache: true
+        kubeconfig: /home/ubuntu/.kube/config
