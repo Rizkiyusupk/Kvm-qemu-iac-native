@@ -21,7 +21,7 @@
         repo_url: https://prometheus-community.github.io/helm-charts
     - name: Deploy latest version of Grafana chart inside monitoring namespace with values
       kubernetes.core.helm:
-        name: deploy
+        name: prometheus
         chart_ref: prometheus-community/kube-prometheus-stack
         chart_version: "65.1.0"
         release_namespace: monitoring

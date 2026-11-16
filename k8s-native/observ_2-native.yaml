@@ -2,4 +2,23 @@
   hosts: masters
   become: yes
   tasks:
-    - name:
+    - name: Add a repository
+      kubernetes.core.helm_repository:
+        name: grafana
+        repo_url: https://grafana.github.io/helm-chart
+    - name: Deploy latest version of Grafana/loki chart inside monitoring namespace with values
+      kubernetes.core.helm:
+        name: grafana
+        chart_ref: grafana/loki
+        chart_version: "6.55.0"
+        release_namespace: monitoring
+        update_repo_cache: true
+        kubeconfig: /home/ubuntu/.kube/config
+    - name: Deploy latest version of Grafana/promtail chart inside monitoring namespace with values
+      kubernetes.core.helm:
+        name: grafana
+        chart_ref: grafana/promtail
+        chart_version: "6.17.1"
+        release_namespace: monitoring
+        update_repo_cache: true
+        kubeconfig: /home/ubuntu/.kube/config
