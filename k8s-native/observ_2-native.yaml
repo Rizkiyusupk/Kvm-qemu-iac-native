@@ -6,6 +6,7 @@
       kubernetes.core.helm_repository:
         name: grafana
         repo_url: https://grafana.github.io/helm-charts
+    ###  saya meminta claude untuk memasukan semua nilai --set dari playbook lama di satu task ini karena memang beanr benar membingungkan
     - name: Deploy Loki (single binary)
       kubernetes.core.helm:
         name: loki
@@ -50,3 +51,7 @@
         release_namespace: monitoring
         update_repo_cache: true
         kubeconfig: /home/ubuntu/.kube/config
+        values:
+          config:
+            clients:
+              - url: http://loki:3100/loki/api/v1/push
