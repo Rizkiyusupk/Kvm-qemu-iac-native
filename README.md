@@ -67,6 +67,14 @@ k8s-native/
 - **KVM** :  v 8.2.2
 - **QEMU** :  v 8.2.2
 - **LIBVIRT** : 10.0.0
+  
+### Catatan Kompatibilitas
+Dites pada: VM Ubuntu 22.04 (jammy, dari image cloud) dan node Jenkins Ubuntu 25.04.
+Kalau memakai rilis Ubuntu lain, alur playbook dan module-nya sama. Yang perlu
+disesuaikan hanya yang bergantung pada codename rilis:
+- HashiCorp: ubah `hashicorp_suite` bila suite rilis belum ada di repo mereka.
+- Docker: pastikan `download.docker.com` sudah punya suite untuk rilis tersebut.
+- Terraform: ganti URL image di `prep-vm.tf`.
 
 ### Project
 Link ke project [ini](/https://rizkiyusupk.github.io/devops/kubernetes/linux/server/iac/infrastructure/kvm/)
