@@ -74,5 +74,3 @@ disesuaikan hanya yang bergantung pada codename rilis:
 - Docker: pastikan `download.docker.com` sudah punya suite untuk rilis tersebut.
 - Terraform: ganti URL image di `prep-vm.tf`.
 
-### Project
-Link ke project [ini](/https://rizkiyusupk.github.io/devops/kubernetes/linux/server/iac/infrastructure/kvm/)
